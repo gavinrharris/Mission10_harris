@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+// Type definition matching the shape of data from the API
 interface Bowler {
     name: string;
     team: string;
@@ -13,11 +14,12 @@ interface Bowler {
 function BowlerTable() {
     const [bowlers, setBowlers] = useState<Bowler[]>([]);
 
+    // Fetch bowler data from the backend when the component first loads
     useEffect(() => {
         fetch('http://localhost:5177/bowlers')
             .then((res) => res.json())
             .then((data) => setBowlers(data));
-    }, []);
+    }, []); // empty array = only run once on mount
 
     return (
         <table border={1} cellPadding={8}>
@@ -33,6 +35,7 @@ function BowlerTable() {
                 </tr>
             </thead>
             <tbody>
+                {/* Loop through each bowler and create a table row */}
                 {bowlers.map((bowler, index) => (
                     <tr key={index}>
                         <td>{bowler.name}</td>
